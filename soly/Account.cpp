@@ -47,32 +47,32 @@ float Account::Cal_clc(string x)
 	setbmr(bmr);
 	return bmr;
 }
-void Account::setactivitylevel()
+string Account::setactivitylevel()
 {
-	string a;
+	
 	int x;
 	cout << "Enter your activity level:\n1.Low\n2.Moderate\n3.High\n";
 	cin >> x;
 	if(x==1)
 	{
 		level = LOW;
-		a= "Low";
+		return "Low";
 	}
 	else if(x==2)
 	{
 		level = MODERATE;
-		a="Moderate";
+		return "Moderate";
 	}
 	else if(x==3)
 	{
 		level = HIGH;
-		a = "High";
+		return "High";
 	}
 	else
 	{
 		cout << "Invalid input!!";
 	}
-	this->activitylevel = a;
+	
 }
 void Account::setbmr(double b)
 {

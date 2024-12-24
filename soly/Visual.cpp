@@ -108,7 +108,6 @@ void Visual::login()
 	
 	
 }
-
 void Visual::create_file()
 {
 	int c;
@@ -137,10 +136,9 @@ void Visual::create_file()
 		ofstream f2(fileacc, ios::app);
 	}
 }
-
 void Visual::register_p()
 {
-	string name, gender, email, password;
+	string name, gender, email, password,act;
 	float weight, length;
 	double bmr;
 	int age;
@@ -237,10 +235,10 @@ void Visual::register_p()
 			g = true;
 		}
 	} while (!g);
-	a.setactivitylevel();
-	bmr=a.Cal_clc(activitylevel);
+	act = a.setactivitylevel();
+	bmr = a.Cal_clc(act);
 	ofstream f1(fileacc);
-	f1 << email << endl << password << endl;
+	f1 << email << endl << password << endl << act << endl;
 	f1.close();
 	ofstream f2(filename);
 	f2 << age << endl << weight << endl << length << endl << bmr << endl;
@@ -307,7 +305,7 @@ void Visual::viewspecificuser()
 		if (f1.is_open()&& f2.is_open())
 		{
 			int age , weight , length;
-			string email, password;
+			string email, password,act;
 			float bmr;
 			while (f1 >> age >> weight >> length >> bmr)
 			{
@@ -318,10 +316,11 @@ void Visual::viewspecificuser()
 				cin.get();
 			}
 			f1.close();
-			while(f2 >> email >> password)
+			while(f2 >> email >> password >> act)
 			{
 				cout << "Email:" << email << endl;
 				cout << "Password:" << password << endl;
+				cout << "Activity level:" << act << endl;
 				cin.get();
 			}
 
@@ -426,7 +425,7 @@ void Visual::selectworkout()
 	}
 	else
 	{
-		cout << "You have selected:" << workout[c].getname() << endl;
+		cout << "You have selected:" << workout[c-1].getname() << endl;
 	}
 }
 void Visual::calcfoodbmr()
@@ -436,6 +435,30 @@ void Visual::calcfoodbmr()
 	float grams, s, d;
 	int c;
 	Account a;
+	string act;
+	for (int i = 1; i <= count; i++)
+	{
+		string first = "account";
+		string middle = "info";
+		string last = to_string(i);
+		fileacc = first + middle + last + ".txt";
+		ifstream f1(fileacc);
+		string email, password;
+
+		if (f1.is_open())
+		{
+			
+			while (f1 >> email >> password >> act)
+			{
+				cout << "Activity level:" << act << endl;
+			}
+			f1.close();
+		}
+		else
+		{
+			cerr << "can't access file:" << fileacc;
+		}
+	}
 	cout << "1.Calculate food\n2.Calculate workout\nChoice:";
 	cin >> c;
 	switch (c)
@@ -446,7 +469,7 @@ void Visual::calcfoodbmr()
 		cin >> grams;
 		selectfood();
 		cout << "The calories of the food are:" << Tracker::Food_calc(food[c-1], grams) << endl;
-		cout << "your daily remaining calories are:" << a.Cal_clc(activitylevel) << "-"<<  Tracker::Food_calc(food[c - 1], grams) << " = " << a.Cal_clc(activitylevel) - Tracker::Food_calc(food[c - 1], grams) << " calories\n";
+		cout << "your daily remaining calories are:" << a.Cal_clc(act) << "-"<<  Tracker::Food_calc(food[c - 1], grams) << " = " << a.Cal_clc(act) - Tracker::Food_calc(food[c - 1], grams) << " calories\n";
 		break;
 	}
 	case 2:

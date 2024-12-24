@@ -4,7 +4,6 @@ Food::Food()
 {
 	name = "Unknown";
 	calories = 0;
-
 }
 
 Food::Food(string name, float calories) {
