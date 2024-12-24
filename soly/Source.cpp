@@ -14,7 +14,7 @@ int main()
 		cout << "3. Add workout" << endl;
 		cout << "4. View food" << endl;
 		cout << "5. View workout" << endl;
-		cout << "6. calculate bmr" << endl;
+		cout << "6. calculate calories" << endl;
 		cout << "7. Exit" << endl;
 		cin >> c;
 		switch (c)
